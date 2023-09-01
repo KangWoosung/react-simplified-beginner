@@ -16,6 +16,7 @@ import Components44 from "./versions/Components44";
 import Components46 from "./versions/Components46";
 import Components47 from "./versions/Components47";
 import Components48 from "./versions/Components48";
+import Components49 from "./versions/Components49";
 
 const test = "";
 //  make div with class large and id with largeId
@@ -32,7 +33,7 @@ function App() {
         <input id="inputId" type="number" defaultValue={3} />
       </div>
       {/* <Components11 /> */}
-      <Components48 />
+      <Components49 />
     </>
   );
 }
