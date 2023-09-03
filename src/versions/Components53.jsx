@@ -1,5 +1,7 @@
 import React from "react";
-import useLocalStorage from "./components/useLocalStorage";
+import { useState } from "react";
+// import useLocalStorage from "./components/useLocalStorage";
+import useLocalStorage3 from "./components/useLocalStorage3";
 
 /*  2023-09-02 03:01:40
 - localStorage I/O 를 담당하는 훅을 예상한다. 
@@ -16,31 +18,73 @@ This hook should take two arguments. The first is a string which is the key for 
 4.Use JSON to serialize and deserialize the values stored in localStorage so that it will work with any value (such as arrays or objects).
 */
 
-//  storage = { key: key, value: value } -- value 는 object 일 수 있다.
-function useLocalStorage(storage, options) {
-  const [localStore, setLocalStorage] = useState();
-
-  function setToStorage() {
-    localStorage.setItem(storage.key, JSON.stringify(storage.value));
-    setLocalStorage(storage);
-  }
-  return { localStore, setToStorage };
-}
-
 const Components53 = () => {
-  const [name, setName] = useLocalStorage("name", "");
-  const [age, setAge] = useLocalStorage("age", 0, Number);
-  const [isDarkMode, setIsDarkMode] = useLocalStorage(
-    "isDarkMode",
-    false,
-    Boolean
-  );
+  const [firstName, setFirstName] = useLocalStorage3("FIRST_NAME", "미화");
+  //   const [lastName, setLastName] = useLocalStorage2("LAST_NAME", "이");
+  //   const [hobbies, setHobbies] = useLocalStorage2("HOBBIES", "");
+
+  // Bonus:
+  const [lastName, setLastName] = useLocalStorage3("LAST_NAME", () => {
+    return "Default";
+  });
+
+  // Bonus:
+  const [hobbies, setHobbies] = useLocalStorage3("HOBBIES", [
+    "Programming",
+    "Weight Lifting",
+  ]);
+  console.log(firstName);
+  console.log(lastName);
+  console.log(hobbies);
 
   return (
-    <div>
+    <>
       <h1>Components53</h1>
       <h2>Use LocalStorage Hook</h2>
-    </div>
+      <p>반가워. 내 이름은 {firstName} 야 </p>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          marginBottom: "1rem",
+        }}
+      >
+        <label>First Name</label>
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </div>
+
+      {/* Bonus: */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          marginBottom: "1rem",
+        }}
+      >
+        <label>Last Name</label>
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </div>
+
+      {/* Bonus: */}
+      <div>{hobbies.join(", ")}</div>
+      <button
+        onClick={() =>
+          setHobbies((currentHobbies) => [...currentHobbies, "New Hobby"])
+        }
+      >
+        Add Hobby
+      </button>
+    </>
   );
 };
 
