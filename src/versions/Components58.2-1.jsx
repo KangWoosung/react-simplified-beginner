@@ -14,6 +14,9 @@ useRef 와 useState 를 조합한, 실시간 Form Validator
 3. 이후, diversion=="useState" 로 바뀌면,
     validateEmail 과 validatePasswd 에서, 58.1 의 코드 그대로 진행시키면 될 듯..
 
+2023-09-05 23:39:15
+새롭게 등장한 스프레드 문법이 빌런이 됐지만, 하지만, 세워둔 로직 대로 해결했네.
+로직이 문제지, 숙제는 어렵지 않았다. 물론 스프레드 구문은 또다른 숙제가 됐지만...
 */
 
 const Components582 = () => {
@@ -120,6 +123,9 @@ const Components582 = () => {
         {`
 4. Make it so that the error messages show up when you submit the form (just like step 2), but also make it so the error messages will automatically update when you change the value in each input but only after the first time you submit the form.
 For example if you type in an email that is incorrect and submit the form it should show an error message. Then when you go back and start making changes to the email input, the error message should update with the current errors as you change the input and disappear when the input is valid.
+
+4번 문제에 도전한다.
+useRef 방식으로 첫 서밋이 발생한 다음부터는, useState 방식으로 작동하도록 만들으라고...
 `}
       </p>
 
@@ -169,3 +175,48 @@ For example if you type in an email that is incorrect and submit the form it sho
 };
 
 export default Components582;
+
+/*
+Hi Kyle.
+Thank you for your great course.
+So far I'm still here alive. That's the best part for me. ;)
+My approach of this work was somewhat different from yours, so I want to ask you about the problems with my implementation.
+My code works just fine (except the regEx & errorMsg part which seems not a big deal for now).
+And I'm not sure my kind of approach is the proper "React Way" you mentioned several times.
+
+  const emailRef = useRef();
+  const [diversion, setDiversion] = useState("useRef");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    emailValid && passwdValid
+      ? setDiversion("useRef")
+      : (setDiversion("useState"),
+        setEmailVal(emailVal),
+        setPasswdVal(passwdVal));
+    // Do something...
+  };
+
+  const validateEmail = (e) => {
+    if (diversion == "useRef") return;
+    setEmailVal(e.target.value);
+    // Check codes...
+  };
+
+  return(
+  <form onSubmit={handleSubmit} className="form">
+    <input
+        className="input"
+        type="email"
+        id="email"
+        {...(diversion === "useRef"
+        ? { ref: emailRef }
+        : { value: emailVal })}
+        onChange={validateEmail}
+    />
+    <div className="msg">
+        {emailValid ? "Valid email though" : emailErrorMsg}
+    </div>
+  </form>
+  )
+*/
