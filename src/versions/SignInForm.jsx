@@ -1,12 +1,21 @@
 import { SignInFormGroup } from "./components/SignInFormGroup";
 import { useForm, useController } from "react-hook-form";
 import ReactSelect from "react-select";
+import { motion } from "framer-motion";
 import "../css/styles.css";
 
 /*  2023-09-08 01:43:54
 실전에서도 사용될 수 있을, Sign in form 을 만들어보자.
 React Form Hook, Raeact Select 를 활용한다.
 
+frame-motion 사용예제
+  return (
+    <motion.div
+      className="box"
+      initial={{ scale: 0 }}
+      animate={{ scale: 1, rotateZ: 360 }}
+    />
+  );
 */
 
 const EMAIL_PROVIDERS = [
@@ -44,7 +53,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div>
+    <motion.div className="box" initial={{ scale: 0 }} animate={{ scale: 1 }}>
       <h1>SignInForm</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <SignInFormGroup errorMessage={errors?.email?.message}>
@@ -103,7 +112,7 @@ const SignInForm = () => {
           Submit
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
