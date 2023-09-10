@@ -1,6 +1,12 @@
 import React from "react";
+import { useContext } from "react";
+import { TodosContext } from "../Components682";
+import { ACTION } from "../Components682";
 
-const FilterForm = ({ filterStr, onChangeFilterStr, hideCompleted }) => {
+const FilterForm = () => {
+  const { state, dispatch, setStorageTodos } = useContext(TodosContext);
+  const { todos, filterStr, hideCompleted } = state;
+
   return (
     <>
       <div className="filter-form">
@@ -10,11 +16,21 @@ const FilterForm = ({ filterStr, onChangeFilterStr, hideCompleted }) => {
             type="text"
             id="name"
             value={filterStr}
-            onChange={onChangeFilterStr}
+            onChange={(e) => {
+              dispatch({
+                type: ACTION.FILTER_TODOLIST,
+                payload: e.target.value,
+              });
+            }}
           />
         </div>
         <label>
-          <input type="checkbox" onChange={hideCompleted} />
+          <input
+            type="checkbox"
+            onChange={() => {
+              dispatch({ type: ACTION.HIDE_COMPLETED });
+            }}
+          />
           Hide Completed
         </label>
       </div>

@@ -6,6 +6,7 @@ import TodoList from "./components68/TodoList";
 import FilterForm from "./components68/FilterForm";
 import "../css/styles68.css";
 
+// props 버전 681
 /*  2023-09-10 21:38:19
 1. The state for our todos should be stored in local storage so when we come back to the page at a later time all our data is still there
 2. Convert all the state in the application to use useReducer and Context to pass the state between components
@@ -20,13 +21,13 @@ props 버전으로 모두 구현 완료..
 먼저 할 일들.. useReducer 의 6개 스텝 기억해내자.
 initialState, reducer, dispatch, action, action.type, action.payload
 */
-const initialState = {
-  todos: [],
-  filterStr: "",
-  hideCompleted: false,
-};
+const initialTodos = [
+  { id: crypto.randomUUID(), name: "Item 1", completed: false },
+  { id: crypto.randomUUID(), name: "Item 2", completed: false },
+  { id: crypto.randomUUID(), name: "Item 3", completed: false },
+];
 
-const Components68 = () => {
+const Components681 = () => {
   const [todos, setTodos] = useLocalStorage("TODOS");
   const [filterStr, setFilterStr] = useState("");
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -81,7 +82,7 @@ const Components68 = () => {
 
   return (
     <div>
-      <h1>Components68</h1>
+      <h1>Components681</h1>
       <h2>Simple ToDo with LocalStorage Hook</h2>
       {/* FilterForm 필터 컴포넌트  */}
       <FilterForm
@@ -103,4 +104,4 @@ const Components68 = () => {
   );
 };
 
-export default Components68;
+export default Components681;
