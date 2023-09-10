@@ -1,12 +1,12 @@
 import React from "react";
-import { useState, useEffect, useReducer, useContext } from "react";
+import { useState, useEffect, useReducer, createContext } from "react";
 import Child63 from "./components/Child63";
 
 /*  2023-09-10 01:46:10
 useContext 를 배워보자. 
 
 */
-const UserContext = React.createContext();
+const UserContext = createContext();
 export { UserContext };
 
 const Components63 = () => {
