@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useReducer, createContext } from "react";
 import { useForm } from "react-hook-form";
 import useLocalStorage from "../hooks/useLocalStorage";
 import AddNewTodo from "./components68/AddNewTodo";
-import TodoList from "./components68/TodoList";
+import TodoList2 from "./components68/TodoList2";
 import FilterForm from "./components68/FilterForm";
 import "../css/styles68.css";
 
@@ -23,9 +23,11 @@ props 버전으로 모두 구현 완료..
 initialState 선언, 
 action 상수 선언, 
 reducer 펑션 작성,
-dispatch, 
-action.type, 
-action.payload
+dispatch(action.payload)
+
+2023-09-11 19:55:37
+TodoLost2.jsx 리팩토링까지 진행했고,
+이것으로 숙제는 충분히 마무리 된 것 같다. 
 */
 const initialState = {
   todos: [],
@@ -128,10 +130,13 @@ const Components682 = () => {
     >
       <h1>Components682</h1>
       <h2>Simple ToDo with LocalStorage Hook</h2>
+      <p>{`5. Add the ability to edit existing todos
+    This is in the bonus section not because the editing portion is tricky, 
+    but because handling the proper UI state of swapping between text and an input is something we haven't really done before`}</p>
       {/* FilterForm 필터 컴포넌트  */}
       <FilterForm />
       {/*  TodoList ToDo 리스트 컴포넌트  */}
-      <TodoList />
+      <TodoList2 />
       {/*  AddNewTodo Add New ToDo 컴포넌트  */}
       <AddNewTodo />
     </TodosContext.Provider>

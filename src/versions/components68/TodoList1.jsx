@@ -3,17 +3,16 @@ import { useState, useEffect, useContext } from "react";
 import { TodosContext } from "../Components682";
 import { ACTION } from "../Components682";
 
-const TodoList = () => {
+const TodoList1 = () => {
   const { state, dispatch, setStorageTodos } = useContext(TodosContext);
-  console.log("TodoList ", state);
   const { todos, filterStr, hideCompleted } = state;
+  const [editingTodoId, setEditingTodoId] = useState("");
+  const [editingTodo, setEditingTodo] = useState("");
+
   return (
     <>
       <ul id="list">
         {todos.map((todo) => {
-          // console.log("array.map is running)");
-          // console.log(filterStr, todo.name);
-          // console.log(hideCompleted, todo.completed);
           if (filterStr !== "" && !todo.name.includes(filterStr)) return null;
           if (hideCompleted && todo.completed) return null;
           return (
@@ -40,9 +39,48 @@ const TodoList = () => {
                     });
                   }}
                 />
-                <span data-list-item-text>{todo.name}</span>
+                {editingTodoId != todo.id ? (
+                  <span data-list-item-text>{todo.name}</span>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      value={editingTodo}
+                      onChange={(e) => setEditingTodo(e.target.value)}
+                    />
+                    <button
+                      onClick={() => {
+                        setEditingTodoId("");
+                        dispatch({
+                          type: ACTION.EDIT_TODO,
+                          payload: { id: todo.id, name: editingTodo },
+                        });
+                        setStorageTodos(() => {
+                          return todos.map((each) => {
+                            if (each.id === todo.id) {
+                              return { ...each, name: editingTodo };
+                            } else {
+                              return each;
+                            }
+                          });
+                        });
+                      }}
+                    >
+                      Modify
+                    </button>
+                  </>
+                )}
               </label>
-              <button data-button-edit>Edit</button>
+              <button
+                data-button-edit
+                data-id={todo.id}
+                onClick={async () => {
+                  setEditingTodo(todo.name);
+                  setEditingTodoId(todo.id);
+                }}
+              >
+                Edit
+              </button>
               <button
                 data-button-delete
                 data-id={todo.id}
@@ -63,4 +101,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default TodoList1;
