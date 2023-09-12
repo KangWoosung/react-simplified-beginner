@@ -21,6 +21,9 @@ const [state, dispatch] = useReducer(reducer, initialState);
 이렇게 쓰려고 하는데, useReducer 로는 todos 만 관리한다고 생각하자. 
 const [todos, dispatch] = useReducer(reducer, initialState);
 이렇게 써야 안꼬인다. 
+추가로... 
+reducer 하나당 데이터 객체 하나.. 라고 생각하고 있자. 다른 상황을 만나기 전 까지는..
+
 
 2023-09-12 02:39:21
 Kyle 은, filter 구현에서, App.jsx 에서 이미 완료한 todos.list 를 보내주고 있다. 
@@ -36,6 +39,8 @@ todo.name.update() 시에, 의도치 않은 completed 가 토글되는 에러가
 3차 답안까지 반복할 에너지가 될지.. 아직 잘 모르겠다. 너무 달린 듯.. 좀 쉬어야 겠다. 
 커밋만 해두고 한두시간 쉬어보자.
 
+2023-09-12 06:16:56
+3차 답안은 내일 하자. 오늘은 놀자. 
 
 */
 const LOCALSTORAGE_KEY = "TODOS";
@@ -93,12 +98,12 @@ function reducer(todos, action) {
 
 const Components683 = () => {
   // 0. useLocalStorage() 훅을 이용해서, Storage 에서 초기 데이터를 받아온다.
-  const [localStorageState, setLocalStorageState] =
+  const [localStorageTodo, setLocalStorageTodo] =
     useLocalStorage(LOCALSTORAGE_KEY);
   // 1. useReducer() 의 제 3 파라메터인, init() 펑션으로, 초기 데이터를 Storage 에서 받아와 확보한다.
   const [todos, dispatch] = useReducer(reducer, initialState, () => {
     // 2. 확보한 초기 데이터를 useReducer() 의 리턴 밸류 스테이트 todos 에 보관한다.
-    return localStorageState || [];
+    return localStorageTodo || [];
   });
   const AddTodoRef = useRef();
   // 글로벌 영역에서 필터를 관리해주자.
@@ -111,7 +116,7 @@ const Components683 = () => {
   // 3. useEffect() 의 디펜던시로 todos 를 붙여주고, todos 에 변경이 있을 때마다, Storage.Update() 가 이루어지도록 한다.
   useEffect(() => {
     if (todos == "" || todos == []) return;
-    setLocalStorageState(todos);
+    setLocalStorageTodo(todos);
   }, [todos]);
 
   // 5. Context 로 넘겨줄 펑션들을 지정하자.
@@ -127,6 +132,8 @@ const Components683 = () => {
   const toggleTodo = (todoId) => {
     dispatch({ type: ACTION.TOGGLE, payload: { id: todoId } });
   };
+  // 필터 스테이트 값이 부모 컴포넌트에서 관리되기 때문에,
+  // 필터의 결과물을 부모 컴포넌트에서 미리 작업해준 뒤에 자식으로 보내주자.
   const filteredTodoList = todos.filter((todo) => {
     if (hideCompleted) {
       return todo.name.includes(filterStr) && !todo.completed;
