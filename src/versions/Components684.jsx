@@ -67,6 +67,7 @@ const Components684 = () => {
     LOCALSTORAGE_KEY,
     initialState
   );
+  // useReducer( reducer, initialState, initialData )
   const [todos, dispatch] = useReducer(reducer, initialState, () => {
     return storageTodos ? storageTodos : [];
   });

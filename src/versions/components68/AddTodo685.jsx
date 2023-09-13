@@ -17,13 +17,11 @@ const AddTodo685 = () => {
     reset();
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(handleInputSubmit)} id="new-todo-form">
-        <label htmlFor="todo-input">New Todo</label>
-        <input type="text" id="todo-input" {...register("newTodo")} />
-        <button>Add Todo</button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit(handleInputSubmit)} id="new-todo-form">
+      <label htmlFor="todo-input">New Todo</label>
+      <input type="text" id="todo-input" {...register("newTodo")} />
+      <button>Add Todo</button>
+    </form>
   );
 };
 

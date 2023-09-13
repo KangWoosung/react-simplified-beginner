@@ -13,7 +13,19 @@ const TodoItem685 = ({ id, name, completed }) => {
   const { register, handleSubmit, setValue } = useForm();
   const [editingTodoId, setEditingTodoId] = useState(null);
 
+  // edit 모드에서 사용자 편의를 추가하는 useEffect
+  // edit 모드에서 esc 를 누르면 edit 모드가 해제된다.
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      e.key === "Escape" && setEditingTodoId(null);
+    };
+    editingTodoId
+      ? document.addEventListener("keydown", handleKeyDown)
+      : document.removeEventListener("keydown", handleKeyDown);
+  }, [editingTodoId]);
+
   const handleEditTodo = (data) => {
+    if (data.editTodo.length === 0) return;
     editTodoAction(id, data.editTodo);
     setEditingTodoId(null);
   };
@@ -24,6 +36,7 @@ const TodoItem685 = ({ id, name, completed }) => {
         <form onSubmit={handleSubmit(handleEditTodo)}>
           <label htmlFor={`edit-todo-${id}`}>Edit Todo</label>
           <input
+            autoFocus
             type="text"
             id={`edit-todo-${id}`}
             defaultValue={name}
