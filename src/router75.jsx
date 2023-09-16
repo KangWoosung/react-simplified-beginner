@@ -1,5 +1,4 @@
 /*  2023-09-16 03:56:41
-
 이번 75강 과제는, 
 1. API 구축 부터 시작하는 게 좋겠다. 
    API 구조는 단순하지만, react-router 의 설정 코드에 거의 모든 것을 의존할 것이다. 
@@ -63,4 +62,114 @@ File Tree Structure
 -index.jsx
 -package.json
 
+2023-09-16 05:55:56
+라우터 규칙 안에, 라우터의 결과물이 포함된다는 게.. 이게 가능한 이야기인가??
+API 라우터가 생각보다 고난이도일 수 있을 것 같다. 
+일차적으로, API 없이, Json 임포트로 client 단 라우팅과 출력부터 해봐야 할 것 같다. 
+
+2023-09-16 10:04:29
+문제가 굉장히 어렵다. 
+API 서버 따로, 웹서버 따로 구축해야할 것 같았는데, 그건 아닌 것 같다. 포트를 따로 열어도 결국 같은 디렉토리의 같은 라우터가 사용되고 만다... 하나의 라우터에서, 이 모든 작업을 해결해야 한다. 
+GPT 에게 인사이트를 좀 얻어보자.
+
+React Router DOM 으로 라우터를 만드는 프로젝트를 완수해야 하는데,
+API 서비스와, 웹 서비스가 모두 해결되어야 해.
+데이터 처리를 위한 db.json 은,  로컬에 준비되어 있어. 
+
+API 서비스를 위한 디렉토리 구조가 
+/api/db.json 
+/api/Api.jsx
+이렇고,
+
+웹 서비스를 위한 디렉토리 구조가
+/client/Navbar.jsx
+/client/Home.jsx
+/client/Posts.jsx
+/client/Post.jsx
+/client/Users.jsx
+
+이렇게 있다고 가정할게. 
+자 이제,
+export const router75 = createBrowserRouter([])
+라우터를 한번 만들어줘
+.... 
+GPT 가 매우 기본적인 라우터 코드를 돌려주었다.
+그래.. 기본부터, 차근차근 하나씩만 진행해보자..
+
 */
+
+import {
+  Navigate,
+  Outlet,
+  createBrowserRouter,
+  useNavigation,
+} from "react-router-dom";
+import Api from "./api/Api";
+import Home from "./client/Home";
+import Posts from "./client/Posts";
+import Navbar from "./client/Navbar";
+
+const fetchUrl = "http://localhost:5173/";
+
+export const router75 = createBrowserRouter([
+  {
+    path: "posts",
+    element: <ApiLayoutPosts />,
+    loader: ({ request: { signal } }) => {
+      return fetch(`${fetchUrl}/posts`, { signal });
+    },
+    children: [
+      {
+        path: ":id",
+        element: <ApiLayoutPost />,
+        loader: ({ params, request: { signal } }) => {
+          return fetch(`${fetchUrl}/posts/${params.id}`, { signal }).then(
+            (res) => {
+              console.log(res);
+              if (res.status === 200) return res.json();
+              throw new Error("404 Not Found");
+            }
+          );
+        },
+      },
+    ],
+  },
+  {
+    element: <NavLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      {},
+      { path: "/posts", element: <Posts /> },
+    ],
+  },
+]);
+
+export function ApiLayoutPosts() {
+  const { state } = useNavigation();
+  return (
+    <>
+      <Api />
+      <Outlet context={"posts"} />
+    </>
+  );
+}
+
+export function ApiLayoutPost() {
+  const { state } = useNavigation();
+  return (
+    <>
+      <Api />
+      <Outlet context={"post"} />
+    </>
+  );
+}
+
+export function NavLayout() {
+  const { state } = useNavigation();
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
+}
