@@ -83,10 +83,17 @@ export const router751 = createBrowserRouter([
                 if (res.status === 200) return res.json();
                 throw new Error("404 Not Found");
               });
-              console.log("post", post);
-              console.log("comments", comments);
-              console.log("user", user);
-              return { post, comments, user };
+              const users = await fetch(`${fetchUrl}users`, {
+                signal,
+              }).then((res) => {
+                if (res.status === 200) return res.json();
+                throw new Error("404 Not Found");
+              });
+
+              //   console.log("post", post);
+              //   console.log("comments", comments);
+              //   console.log("user", user);
+              return { post, comments, user, users };
             },
             element: <Post postId={postId} />,
           },

@@ -10,7 +10,7 @@ useEffect() 로, 마운트시, fetch 해서 받아오면 된다.
 
 export default function Post({ postId }) {
   const { state: loadingState } = useNavigation();
-  const { post, comments, user } = useLoaderData();
+  const { post, comments, user, users } = useLoaderData();
   //   const [comments, setComments] = useState([]);
   //   const [user, setUser] = useState(1);
   //   const postsUrl = "http://127.0.0.1:3000/";
@@ -77,6 +77,13 @@ export default function Post({ postId }) {
           {comments.map((comment) => (
             <div className="card" key={comment.id}>
               <div className="card-body">
+                <div className="text-sm mb-1">
+                  {console.log(
+                    users.find((user) => {
+                      return user.email === comment.email;
+                    })
+                  )}
+                </div>
                 <div className="text-sm mb-1">{comment.email}</div>
                 {comment.body}
               </div>
