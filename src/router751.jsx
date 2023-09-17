@@ -174,8 +174,6 @@ export const router751 = createBrowserRouter([
       },
     ],
   },
-  {},
-  {},
 ]);
 
 export function NavLayout() {
