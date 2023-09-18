@@ -19,6 +19,7 @@ I have implemented this job in three different ways.
 3. Fetch every data in components.
 
 1 & 2 were not tough.
+and 3... was impossible to make 404 things work.
 */
 
 const fetchUrl = "http://localhost:3000/";
