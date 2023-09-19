@@ -1,20 +1,12 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useLoaderData, useNavigation } from "react-router";
+import { useLoaderData } from "react-router";
 import { getUsers } from "../apiHandler/users";
 import { Link } from "react-router-dom";
 
-const Users754 = () => {
-  const { state: loadingState } = useNavigation();
+const Users755 = () => {
   const users = useLoaderData();
 
-  let loadingClass = "loading";
-  loadingState === "loading"
-    ? (loadingClass += " active")
-    : (loadingClass = "");
-
   return (
-    <div className={`container  ${loadingClass} `}>
+    <>
       <h1 className="page-title">Users</h1> {users.length}
       <div className="card-grid">
         {typeof users === "undefined" ? (
@@ -37,15 +29,15 @@ const Users754 = () => {
           ))
         )}
       </div>
-    </div>
+    </>
   );
 };
 
-const loader = async ({ request: { signal } }) => {
+const loader = ({ request: { signal } }) => {
   return getUsers({ signal });
 };
-let UsersRoute;
+let UsersRoute = {};
 export default UsersRoute = {
   loader,
-  element: <Users754 />,
+  element: <Users755 />,
 };

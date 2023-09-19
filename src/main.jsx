@@ -7,12 +7,13 @@ import { RouterProvider } from "react-router-dom";
 // import { router751 } from "./router751";
 // import { router752 } from "./router752";
 // import { router753 } from "./router753";
-import { router754 } from "./router754";
+// import { router754 } from "./router754";
+import { router755 } from "./router755";
 import Navbar from "./Navbar";
 // import App from "./App.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router754} />
+    <RouterProvider router={router755} />
   </React.StrictMode>
 );

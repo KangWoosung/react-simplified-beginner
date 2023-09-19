@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { getTodos } from "../lib/todos";
+import { getTodos } from "../apiHandler/todos";
 import { useLoaderData, useNavigation } from "react-router";
 
 const Todos754 = () => {

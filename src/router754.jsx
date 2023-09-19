@@ -75,12 +75,17 @@ export function NavLayout() {
     </>
   );
 }
+//  에러 표시 메세지를..
+//  배포/프로덕션 페이즈에서는 http.status 까지만 보여주고,
+//  개발중일 때에는 stack 에러를 노출시켜준다.
 export function ErrorPage() {
   const error = useRouteError();
   return (
     <>
       <h1>Error - Something went wrong!!</h1>
-      {import.meta.env.MODE !== "production" && (
+      {import.meta.env.MODE === "production" ? (
+        <pre>{error.message}</pre>
+      ) : (
         <>
           <pre>{error.message}</pre>
           <pre>{error.stack}</pre>

@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigation } from "react-router";
-import { getUser, getUsers } from "../lib/users";
-import { getPostsByUser } from "../lib/posts";
-import { getTodosByUser } from "../lib/todos";
+import { getUser, getUsers } from "../apiHandler/users";
+import { getPostsByUser } from "../apiHandler/posts";
+import { getTodosByUser } from "../apiHandler/todos";
 import { Link } from "react-router-dom";
 
 const User754 = () => {

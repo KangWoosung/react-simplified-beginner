@@ -1,19 +1,14 @@
 import axios from "axios";
 import React from "react";
-import { getPosts } from "../lib/posts";
+import { getPosts } from "../apiHandler/posts";
 import { useLoaderData, useNavigation } from "react-router";
 import { Link } from "react-router-dom";
 
 const Posts754 = () => {
-  const { state: loadingState } = useNavigation();
   const posts = useLoaderData();
-  let loadingClass = "loading";
-  loadingState === "loading"
-    ? (loadingClass += " active")
-    : (loadingClass = "");
   return (
     <>
-      <div className={`container  ${loadingClass} `}>
+      <div className="container">
         <h1 className="page-title">Posts</h1>
         <div className="card-grid">
           {typeof posts === "undefined" ? (
