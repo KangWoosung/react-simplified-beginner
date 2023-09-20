@@ -16,12 +16,12 @@ import {
   useRouteError,
 } from "react-router-dom";
 import Home from "./client/Home";
-import Navbar from "./client/Navbar";
 import PostsRoute from "./client/Posts755";
 import UsersRoute from "./client/Users755";
 import TodosRoute from "./client/Todos755";
 import PostRoute from "./client/Post755";
 import UserRoute from "./client/User755";
+import { RootLayout } from "./layouts/RootLayout";
 
 export const router755 = createBrowserRouter([
   {
@@ -55,22 +55,7 @@ export const router755 = createBrowserRouter([
   },
 ]);
 
-function RootLayout() {
-  const { state } = useNavigation();
-  const loadingState = state === "loading";
-  return (
-    <>
-      <Navbar />
-      <ScrollRestoration />
-      {loadingState && <div className="loading-spinner"></div>}
-      <div className={`container ${loadingState} ? "loading" : "" `}>
-        <Outlet />
-      </div>
-    </>
-  );
-}
-
-function ErrorPage() {
+export function ErrorPage() {
   const error = useRouteError();
   return (
     <>

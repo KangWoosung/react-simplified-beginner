@@ -13,6 +13,7 @@ export default function Home() {
         <p>Home 페이지 입니다.</p>
         <ul className="list">
           <li>내일은 감자볶음</li>
+          <li>모래는 감자찜</li>
         </ul>
       </div>
     </>
