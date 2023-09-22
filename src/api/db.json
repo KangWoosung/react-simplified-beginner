@@ -4003,7 +4003,6 @@
       "body": "perspiciatis quis doloremque\nveniam nisi eos velit sed\nid totam inventore voluptatem laborum et eveniet\naut aut aut maxime quia temporibus ut omnis"
     }
   ],
-
   "photos": [
     {
       "albumId": 1,
@@ -39006,7 +39005,6 @@
       "thumbnailUrl": "https://via.placeholder.com/150/6dd9cb"
     }
   ],
-
   "posts": [
     {
       "userId": 1,
@@ -40809,9 +40807,37 @@
       "id": 200,
       "title": "ipsam aperiam voluptates qui",
       "completed": false
+    },
+    {
+      "title": "추가해보자",
+      "id": 201
+    },
+    {
+      "title": "혜진이",
+      "completed": false,
+      "id": 202
+    },
+    {
+      "title": "미화",
+      "completed": false,
+      "id": 203
+    },
+    {
+      "title": "김미선",
+      "completed": false,
+      "id": 204
+    },
+    {
+      "title": "손외숙",
+      "completed": false,
+      "id": 205
+    },
+    {
+      "title": "설아",
+      "completed": false,
+      "id": 206
     }
   ],
-
   "users": [
     {
       "id": 1,
