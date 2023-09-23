@@ -1,14 +1,18 @@
+/*
+
+*/
+
 import { useLoaderData } from "react-router";
 import { getPost } from "../apiHandler/posts";
-import { Link } from "react-router-dom";
-import { getUser } from "../apiHandler/users";
 import { getCommensByPostId } from "../apiHandler/comments";
+import { getUser } from "../apiHandler/users";
+import { Link } from "react-router-dom";
 
-const Post755 = () => {
+function Post781() {
   const { post, user, comments } = useLoaderData();
-
   return (
     <>
+      <h1>Hi Post</h1>
       <h1 className="page-title">
         {post.title} <small>{post.id}</small>
       </h1>
@@ -32,18 +36,16 @@ const Post755 = () => {
       </div>
     </>
   );
-};
+}
 
-//  여기서 params 파라메터가 어떻게 밸류를 갖게 되는지 헤깔리는데,
-//  여기 이 코드는 함수정의 코드블럭이고, 지금 이 상태에서는 밸류를 갖고있지 않다.
-//  이 코드가 리턴되면, loader 처리시에 해당 REST 밸류가 할당되는 것이다.
 const loader = async ({ params, request: { signal } }) => {
   const post = await getPost(params.postId, { signal });
   const user = await getUser(post.userId, { signal });
-  const comments = getCommensByPostId(params.postId, { signal });
-  return { post, user, comments: await comments };
+  const comments = await getCommensByPostId(post.id, { signal });
+  return { post, user, comments };
 };
+
 export const PostRoute = {
+  element: <Post781 />,
   loader,
-  element: <Post755 />,
 };

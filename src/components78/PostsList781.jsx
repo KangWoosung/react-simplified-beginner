@@ -1,10 +1,14 @@
+/*
+
+*/
+
 import { useLoaderData } from "react-router";
 import { getPosts } from "../apiHandler/posts";
 import { Link } from "react-router-dom";
 
-const Posts755 = () => {
+function PostsList781() {
   const posts = useLoaderData();
-
+  console.log("Posts", posts);
   return (
     <>
       <h1 className="page-title">Posts</h1>
@@ -29,12 +33,13 @@ const Posts755 = () => {
       </div>
     </>
   );
+}
+
+const loader = async ({ request: { signal } }) => {
+  return await getPosts({ signal });
 };
 
-const loader = ({ request: { signal } }) => {
-  return getPosts({ signal });
-};
-export const PostsRoute = {
+export const PostsListRoute = {
+  element: <PostsList781 />,
   loader,
-  element: <Posts755 />,
 };
