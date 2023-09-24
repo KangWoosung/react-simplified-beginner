@@ -20,3 +20,43 @@ export function getPostsByUser(userId, option) {
     .get(`posts?userId=${userId}`, option)
     .then((res) => res.data);
 }
+
+//  2023-09-24 15:30:59
+//  filtered 펑션을 추가한다.
+//  GET /posts?q=<query>&userId=<userId>
+export function getPostsByFilter(filter, option) {
+  const { query, userId } = filter;
+  console.log(`posts?q=${query}&userId=${userId}`);
+  let apiUri = "";
+  query !== "" || userId !== "" ? (apiUri += "?") : "";
+  query !== "" ? (apiUri += `q=${query}`) : "";
+  userId !== "" ? (apiUri += `&userId=${userId}`) : "";
+  return axiosBase
+    .get(`posts${apiUri}`, option)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//  2023-09-24 12:11:00
+//  axios post 펑션을 추가한다.
+//  POST /posts - Create a new post
+export function addPost(postData, option) {
+  return axiosBase
+    .post("posts", postData, option)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//  PUT /posts/:id - Update a post
+export function updatePost(postData, option) {
+  return axiosBase
+    .put(`posts/${postData.id}`, postData, option)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+}

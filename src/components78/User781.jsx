@@ -7,9 +7,10 @@ import { useLoaderData } from "react-router";
 import { getUser } from "../apiHandler/users";
 import { getPostsByUser } from "../apiHandler/posts";
 import { Link } from "react-router-dom";
+import { getTodosByUser } from "../apiHandler/todos";
 
 function User771() {
-  const { user, posts } = useLoaderData();
+  const { user, posts, todos } = useLoaderData();
   console.log("user", user);
 
   return (
@@ -50,6 +51,21 @@ function User771() {
               ))
             )}
           </div>
+          <h3 className="mt-4 mb-2">Todos</h3>
+          <ul>
+            {todos === undefined ? (
+              <div>Todos 데이터가 없습니다.</div>
+            ) : (
+              todos.map((todo) => (
+                <li
+                  key={todo.id}
+                  className={todo.completed ? "strike-through" : ""}
+                >
+                  {todo.title}
+                </li>
+              ))
+            )}
+          </ul>
         </>
       )}
     </>
@@ -59,8 +75,9 @@ function User771() {
 const loader = async ({ params, request: { signal } }) => {
   const user = await getUser(params.userId, { signal });
   const posts = await getPostsByUser(params.userId, { signal });
+  const todos = getTodosByUser(params.userId, { signal });
 
-  return { user, posts };
+  return { user, posts, todos: await todos };
 };
 
 export const UserRoute = {

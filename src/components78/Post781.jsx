@@ -1,4 +1,7 @@
-/*
+/* 2023-09-24 11:20:13
+
+2. Create an Edit Post page that renders out a form that allows the user to edit an existing post. 
+  The form should be identical to the new post form. Don't forget to add a button to the Post page linking to the Edit Post page.
 
 */
 
@@ -15,6 +18,11 @@ function Post781() {
       <h1>Hi Post</h1>
       <h1 className="page-title">
         {post.title} <small>{post.id}</small>
+        <div className="title-btns">
+          <Link className="btn btn-outline" to={`/posts/${post.id}/edit`}>
+            Edit
+          </Link>
+        </div>
       </h1>
       <span className="page-subtitle">
         By: <Link to={`/users/${user.id}`}> {user.name} </Link>

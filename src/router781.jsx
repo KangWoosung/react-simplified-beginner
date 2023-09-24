@@ -25,6 +25,9 @@ import { PostRoute } from "./components78/Post781";
 import { UsersListRoute } from "./components78/UsersList781";
 import { UserRoute } from "./components78/User781";
 import { TodoListRoute } from "./components78/TodoList781";
+import { NewPostRoute } from "./components78/NewPost781";
+import { EditPostRoute } from "./components78/EditPost781";
+// import { FilteredRoute } from "./components78/component/Filter781";
 import Home from "./client/Home";
 
 console.log("PostsListRoute", PostsListRoute);
@@ -39,6 +42,10 @@ export const router781 = createBrowserRouter([
         children: [
           { index: true, ...PostsListRoute },
           { path: ":postId", ...PostRoute },
+          { path: "new", ...NewPostRoute },
+          { path: ":postId/edit", ...EditPostRoute },
+          // /posts?query=미&userId=
+          {},
         ],
       },
       {
