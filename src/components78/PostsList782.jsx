@@ -1,19 +1,18 @@
-/*  2023-09-24 11:18:58
+/* 2023-09-26 10:01:16
 
-3. Add a filter to the Posts page that allows the user to filter the posts by a query.
-4. Add a filter to the Posts page that allows the user to filter the posts by the user that wrote the post.
 
 */
 
 import { useLoaderData } from "react-router";
-import { Link } from "react-router-dom";
-import { getPosts, getPostsByFilter } from "../apiHandler/posts";
-import { getUsers } from "../apiHandler/users";
+import { getPosts } from "../apiHandler/posts";
 import Filter781 from "./component/Filter781";
+import { Link } from "react-router-dom";
+import { getUsers } from "../apiHandler/users";
 
-function PostsList781() {
+function PostsList782() {
   const { posts, users } = useLoaderData();
-  console.log("Posts", posts);
+  console.log("posts:", posts);
+
   return (
     <>
       <h1 className="page-title">
@@ -48,24 +47,13 @@ function PostsList781() {
   );
 }
 
-/* 2023-09-24 15:45:33
-filter 처리를 위해, getPosts 를 getPostsByFilter 로 변경하였다.
-*/
 const loader = async ({ request: { signal, url } }) => {
-  const queryParams = new URL(url).searchParams;
-  const query = queryParams.get("query") || "";
-  const userId = queryParams.get("userId") || "";
-  const filter = { query, userId };
-
-  const posts = await getPostsByFilter(filter, { signal });
-  console.log("posts in 781", posts);
-  // const posts = await getPosts({ signal });
+  const posts = await getPosts({ signal });
   const users = await getUsers({ signal });
-
-  return { posts, users, query, userId };
+  return { posts, users };
 };
 
 export const PostsListRoute = {
-  element: <PostsList781 />,
+  element: <PostsList782 />,
   loader,
 };

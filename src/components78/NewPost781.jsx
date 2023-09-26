@@ -75,7 +75,7 @@ function NewPost781() {
     <>
       <h1 className="page-title">New Post</h1>
       <Form
-        // onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         method="post"
         className="form"
         ref={formRef}

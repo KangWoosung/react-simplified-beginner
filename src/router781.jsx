@@ -18,7 +18,7 @@ CRUD 를 모두 다루고, URL 라우팅과 리다이랙션을 완성한다.
 
 */
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useRouteError } from "react-router-dom";
 import { RootLayout } from "./layouts/RootLayout";
 import { PostsListRoute } from "./components78/PostsList781";
 import { PostRoute } from "./components78/Post781";
@@ -36,6 +36,9 @@ export const router781 = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
+      //   {
+      //     element: <ErrorPage />,
+      //     children: [
       { path: "/", element: <Home /> },
       {
         path: "posts",
@@ -62,7 +65,14 @@ export const router781 = createBrowserRouter([
           // { path: ":todoId", ...UserRoute },
         ],
       },
+      //     ],
+      //   },
     ],
   },
   {},
 ]);
+
+//  2023-09-26 09:54:41
+//  에러 레이아웃 구현에 실패하였다. 왜 실패했는지 아직도 모르겠음.
+//  일단 782 버전 부터 진행하기 위해, 잠시 보류함..
+export function ErrorPage() {}

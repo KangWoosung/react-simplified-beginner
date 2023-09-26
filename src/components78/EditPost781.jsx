@@ -74,7 +74,8 @@ const loader = async ({ params, request: { signal } }) => {
 //  PUT /posts/:id - Update a post
 const action = async ({ params, request }) => {
   const formData = await request.formData();
-  if (formData.title == "" || formData.body == "")
+  console.log("formData.get('title')", formData.get("title"));
+  if (formData.get("title") == "" || formData.get("body") == "")
     return "Title & Body required";
 
   const postId = formData.get("id");
@@ -84,6 +85,7 @@ const action = async ({ params, request }) => {
     body: formData.get("body"),
     userId: formData.get("userId"),
   };
+  console.log("formDataObject", formDataObject);
   const editData = await updatePost(formDataObject, {});
   return redirect(`../${postId}`);
 };
