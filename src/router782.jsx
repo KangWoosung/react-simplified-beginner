@@ -30,6 +30,7 @@ import { UsersListRoute } from "./components78/UsersList782";
 import { UserRoute } from "./components78/User782";
 import { TodoListRoute } from "./components78/TodoList781";
 import { NewPostRoute } from "./components78/NewPost782";
+import { EditPostRoute } from "./components78/EditPost782";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router782 = createBrowserRouter([
@@ -43,7 +44,7 @@ export const router782 = createBrowserRouter([
           { index: true, ...PostsListRoute },
           { path: ":postId", ...PostRoute },
           { path: "new", ...NewPostRoute },
-          //   { path: ":postId/edit", ...EditPostRoute },
+          { path: ":postId/edit", ...EditPostRoute },
         ],
       },
       {

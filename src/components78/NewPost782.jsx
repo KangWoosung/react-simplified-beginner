@@ -138,6 +138,10 @@ const action = async ({ request }) => {
     userId: formData.get("userId"),
   };
 
+  // const form = event.currentTarget
+  // const formData = new FormData(form)
+  // const formDataObject = Object.fromEntries(formData)
+
   const newPost = await addPost(formDataObject, {});
   return redirect("..");
 };

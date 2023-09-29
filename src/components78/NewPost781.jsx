@@ -83,8 +83,18 @@ function NewPost781() {
         <div className="form-row">
           <div className={`form-group ${errors.title && "error"}`}>
             <label htmlFor="title">Title</label>
-            <input type="text" {...register("title", { required: true })} />
-            {errors.title && <div className="error-message">Required</div>}
+            <input
+              type="text"
+              {...register("title", {
+                maxLength: {
+                  value: 6,
+                  message: "This input exceed maxLength.",
+                },
+              })}
+            />
+            {errors.messages.title && (
+              <div className="error-message">Required</div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="userId">Author</label>
@@ -132,6 +142,9 @@ const action = async ({ request }) => {
     body: formData.get("body"),
     userId: formData.get("userId"),
   };
+  // const form = event.currentTarget
+  // const formData = new FormData(form)
+  // const formDataObject = Object.fromEntries(formData)
 
   const newPost = await addPost(formDataObject, {});
   return redirect("..");
