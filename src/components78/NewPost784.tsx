@@ -18,6 +18,13 @@ Type Error 가 발생한 데이터의 원형까지 추적하고, 해당 데이�
 2023-09-30 20:25:56
 Zod 의 에러 메시지는 잘 출력이 되고 있다. 그렇긴 한데, Zod 의 규칙이 잘 적용되고 있지는 않은 것 같다. 
 1커밋은 해야하니까.. 일단 "Zod is working.. but" 으로 커밋하고, 이후에 다시 해결해보자.
+
+2023-10-01 01:12:23
+문득 든 생각..
+두 인터페이스가 다르거나 순서가 꼬ㅓ이면 어떤 결과가 나오는가..
+
+
+
 */
 
 import React from "react";
@@ -33,19 +40,6 @@ import { Form, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import { addPost } from "../apiHandler/posts";
-
-const Account = z.object({
-  id: z.string().uuid(),
-  email: z.string().email(),
-  age: z.number().int().min(18).max(80),
-  level: z.enum(["GOLD", "SILVER", "BRONZE"]),
-  image: z.string().url().max(200).optional(),
-  ips: z.string().ip().array().optional(),
-  active: z.boolean().default(false),
-  createdAt: z.date().default(new Date()),
-});
-// ✅ 스키마로 부터 타입 추론.. z.infer<typeof Account>
-type Account = z.infer<typeof Account>;
 
 // 이 두개의 interface 로 마법을 만들었다.
 // 이 사용법은 정말로 잘 기억해둬야 할 것이다.
@@ -84,8 +78,10 @@ export default function NewPost784() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(FormDataSchema) });
+  // useForm<Inputs>({ resolver: zodResolver(FormDataSchema) });
   // 이 한 줄의 코드가 많이 혼란스러웠는데,
-  // <Inputs> 는 useForm 에 전달되는 약식 스키마로,
+  // <Inputs> 는 useForm 에 전달되는 약식 스키마로, 제네릭 파라메터라고 한다. 생략 가능하다.
+  // 생략해도 코드가 작동은 하는데, VSCode 에서 에러 표시가 여러개 뜬다. 되도록 생략하지 말자.
   // 이 스키마에 기준하여, 사용자 입력 밸류의 유효성을 검증하고 실시간 반영해주는 용도이다.
   // FormDataSchema 는 Zod 오브젝트 스키마로, 데이터 유효성과 규칙을 정의하는 데 사용된다.
   // 이 때, 에러 메세지는, Zod 오브젝트에서 지정해준 메세지를 RHF 에서 받아와 출력해줄 수 있다.
@@ -118,11 +114,11 @@ export default function NewPost784() {
           <FormGroup errorMessage={errors?.userId?.message}>
             <label htmlFor="userId">Author</label>
             <select {...register("userId")}>
-              <option value={Number(0)} key={0}>
+              <option value={0} key={0}>
                 Nobody
               </option>
               {users.map((user) => (
-                <option value={Number(user.id)} key={user.id}>
+                <option value={user.id} key={user.id}>
                   {user.name}
                 </option>
               ))}
