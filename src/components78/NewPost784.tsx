@@ -1,4 +1,15 @@
 /* 2023-09-30 01:17:38
+# Prework : install zod and resolvers
+# npm i zod
+# npm i react-hook-form zod @hookform/resolvers
+
+# Edit VSCode config for TypeScript Prettier
+  "[typescript]": {
+    "editor.formatOnSave" : true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave" : true
+  },
 
 2023-09-30 14:45:44
 첫 TypeScript ..  비록 GPT 가 던져준 원형을 수정하고 디버깅한 것이지만,
@@ -31,7 +42,8 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { FormDataSchema } from "../schemas/formDataSchema";
+// import { FormDataSchema } from "../schemas/formDataSchema";
+import { PostFormValidation } from "../validations/PostFormValidation";
 
 import { useLoaderData, useNavigate } from "react-router";
 import { getUsers } from "../apiHandler/users";
@@ -39,7 +51,7 @@ import { FormGroup } from "./component/FormGroup";
 import { Form, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
-import { addPost } from "../apiHandler/posts";
+import { addPost, getPosts } from "../apiHandler/posts";
 
 // 이 두개의 interface 로 마법을 만들었다.
 // 이 사용법은 정말로 잘 기억해둬야 할 것이다.
@@ -59,11 +71,12 @@ interface UserType {
 // RHF 에서 폼 입력 필드를 실시간 감시하고 간섭하기 위한 interface 이다.
 // 실제 에러 메세지는 FormDataSchema 에서 정의된 에러 메시지가 출력되는데
 // 이게 왜 꼭 필요한 건지는 모르겠지만, 빠지면 타입스크립트 에러가 난다.
-type Inputs = {
-  title: string;
-  userId: number;
-  body: string;
-};
+// type Inputs = {
+//   title: string;
+//   userId: number;
+//   body: string;
+// };
+type Inputs = z.infer<typeof PostFormValidation>;
 
 export default function NewPost784() {
   // Type 단언...
@@ -77,7 +90,7 @@ export default function NewPost784() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({ resolver: zodResolver(FormDataSchema) });
+  } = useForm<Inputs>({ resolver: zodResolver(PostFormValidation) });
   // useForm<Inputs>({ resolver: zodResolver(FormDataSchema) });
   // 이 한 줄의 코드가 많이 혼란스러웠는데,
   // <Inputs> 는 useForm 에 전달되는 약식 스키마로, 제네릭 파라메터라고 한다. 생략 가능하다.
@@ -146,7 +159,8 @@ export default function NewPost784() {
 
 const loader = async ({ request: { signal } }) => {
   const users = await getUsers({ signal });
-  const maxId = Math.max(...users.map((user) => user.id));
+  const posts = await getPosts({ signal });
+  const maxId = Math.max(...posts.map((post) => post.id));
   return { users, maxId };
 };
 

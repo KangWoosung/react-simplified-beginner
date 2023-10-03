@@ -99,7 +99,8 @@ function NewPost784() {
 
 const loader = async ({ request: { signal } }) => {
   const users = await getUsers({ signal });
-  const maxId = Math.max(...users.map((user) => user.id));
+  const posts = await getPosts({ signal });
+  const maxId = Math.max(...posts.map((post) => post.id));
   return { users, maxId };
 };
 

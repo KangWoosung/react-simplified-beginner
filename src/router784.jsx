@@ -11,7 +11,7 @@ import { UsersListRoute } from "./components78/UsersList782";
 import { UserRoute } from "./components78/User782";
 import { TodoListRoute } from "./components78/TodoList781";
 import { NewPostRoute } from "./components78/NewPost784.tsx";
-import { EditPostRoute } from "./components78/EditPost783";
+import { EditPostRoute } from "./components78/EditPost784.tsx";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router784 = createBrowserRouter([
