@@ -6,6 +6,7 @@ import React from "react";
 import { z } from "zod";
 
 export const PostFormValidation = z.object({
+  id: z.number().optional(),
   title: z
     .string()
     .nonempty("Title is required. 필요해요")

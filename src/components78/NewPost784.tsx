@@ -43,7 +43,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 // import { FormDataSchema } from "../schemas/formDataSchema";
-import { PostFormValidation } from "../validations/PostFormValidation";
+import { PostFormValidation } from "../models/PostFormValidation";
 
 import { useLoaderData, useNavigate } from "react-router";
 import { getUsers } from "../apiHandler/users";
