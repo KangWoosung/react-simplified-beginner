@@ -5,8 +5,8 @@
 import React from "react";
 import { z } from "zod";
 
-export const PostFormValidation = z.object({
-  id: z.number().optional(),
+export const PostSchema = z.object({
+  id: z.coerce.number().optional(),
   title: z
     .string()
     .nonempty("Title is required. 필요해요")
@@ -19,4 +19,9 @@ export const PostFormValidation = z.object({
     .number()
     .or(z.string().regex(/\d+/).transform(Number))
     .refine((n) => n > 0, { message: "Value must be a positive number" }),
+});
+
+export const filterSchema = z.object({
+  query: z.string().optional(),
+  userId: z.number().or(z.string().regex(/\d+/).transform(Number)).optional(),
 });

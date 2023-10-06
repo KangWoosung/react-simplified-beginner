@@ -1,13 +1,5 @@
-/* 2023-10-02 11:55:08
+/* 2023-10-05 19:36:54
 
-Type Management Global Ruleset 이 필요할 것 같다. 
-Type 와 Zod 를 같이 쓰려면 더욱 복잡해질것 같다. 
-
-2023-10-03 21:43:54
-loader 와 useLoaderData 관련, Type 문제를 아직도 해결하지 못하고 있다.
-비슷한 문서를 몇개 찾았지만, 아직 어렵고 해결이 요원하다. 
-https://stackoverflow.com/questions/74160709/how-can-i-define-the-return-type-for-a-react-router-v6-loader
-https://github.com/remix-run/react-router/discussions/9792
 
 */
 /*  modules import  */
@@ -55,9 +47,6 @@ interface loaderInterface {
 function EditPost784() {
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
-  // const { state } = useLocation() as unknown as {
-  //   state: string;
-  // };
   // useLocation 의 반환 타입은 unknown
   const location = useLocation();
   const state = location.state as string;
@@ -76,14 +65,17 @@ function EditPost784() {
   });
 
   const onSubmitForm = async (data: PostType): Promise<void> => {
-    const formR = formRef.current as HTMLFormElement;
-    const formData = new FormData(formR);
-    let formDataObject = Object.fromEntries(formData);
     if (post?.id !== undefined) {
-      formDataObject = { ...formDataObject, id: post.id.toString() };
-      console.log("formDataObject", formDataObject);
-      await updatePost(formDataObject, {});
-      navigate(`/posts/${post.id}`);
+      const formR = formRef.current as HTMLFormElement;
+      const formData = new FormData(formR);
+      formData.append("id", post.id.toString());
+
+      try {
+        await updatePost(Object.fromEntries(formData), {});
+        navigate(`/posts/${post.id}`);
+      } catch (error) {
+        console.error("Error updating post:", error);
+      }
     }
   };
 
@@ -99,7 +91,7 @@ function EditPost784() {
         {/* <input type="hidden" {...register("id")} defaultValue={post?.id} /> */}
         <div className="form-row">
           <FormGroup errorMessage={errors?.title?.message}>
-            <label htmlFor="title">Edit in 784... Post {post?.id}</label>
+            <label htmlFor="title">Edit in 785... Post {post?.id}</label>
             <input
               type="text"
               {...register("title")}

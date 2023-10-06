@@ -43,7 +43,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 // import { FormDataSchema } from "../schemas/formDataSchema";
-import { PostFormValidation } from "../models/PostFormValidation";
+import { PostSchema } from "../models/PostSchema";
 
 import { useLoaderData, useNavigate } from "react-router";
 import { getUsers } from "../apiHandler/users";
@@ -76,7 +76,7 @@ interface UserType {
 //   userId: number;
 //   body: string;
 // };
-type Inputs = z.infer<typeof PostFormValidation>;
+type Inputs = z.infer<typeof PostSchema>;
 
 export default function NewPost784() {
   // Type 단언...
@@ -90,7 +90,7 @@ export default function NewPost784() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({ resolver: zodResolver(PostFormValidation) });
+  } = useForm<Inputs>({ resolver: zodResolver(PostSchema) });
   // useForm<Inputs>({ resolver: zodResolver(FormDataSchema) });
   // 이 한 줄의 코드가 많이 혼란스러웠는데,
   // <Inputs> 는 useForm 에 전달되는 약식 스키마로, 제네릭 파라메터라고 한다. 생략 가능하다.

@@ -17,9 +17,10 @@ import { useEffect, useRef, useState } from "react";
 import { Form, useLoaderData } from "react-router-dom";
 import { getPostsByFilter } from "../../apiHandler/posts";
 
-export default function Filter781({ users }) {
+export default function Filter({ users, filter }) {
   // const [query, setQuery] = useState();
-  const { query, userId } = useLoaderData();
+  // const [userId, setUserId] = useState();
+  const { query, userId } = filter;
   const queryRef = useRef();
   const userRef = useRef();
 

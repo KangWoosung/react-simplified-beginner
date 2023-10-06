@@ -16,3 +16,17 @@ export function getTodosByUser(userId, option) {
     .get(`todos?userId=${userId}`, option)
     .then((res) => res.data);
 }
+
+export function postTodos(data, option) {
+  return axiosBase.post("todos", data, option).then((res) => res.data);
+}
+
+export function putTodos(data, option) {
+  return axiosBase
+    .put(`todos/${data.id}`, data, option)
+    .then((res) => res.data);
+}
+
+export function deleteTodos(id, option) {
+  return axiosBase.delete(`todos/${id}`, option).then((res) => res.data);
+}

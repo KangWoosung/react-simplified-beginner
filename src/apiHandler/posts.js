@@ -28,9 +28,11 @@ export function getPostsByFilter(filter, option) {
   const { query, userId } = filter;
   console.log(`posts?q=${query}&userId=${userId}`);
   let apiUri = "";
-  query !== "" || userId !== "" ? (apiUri += "?") : "";
-  query !== "" ? (apiUri += `q=${query}`) : "";
-  userId !== "" ? (apiUri += `&userId=${userId}`) : "";
+  (query !== "" && query != null) || (userId !== "" && userId != null)
+    ? (apiUri += "?")
+    : "";
+  query !== "" && query != null ? (apiUri += `q=${query}`) : "";
+  userId !== "" && userId != null ? (apiUri += `&userId=${userId}`) : "";
   return axiosBase
     .get(`posts${apiUri}`, option)
     .then((res) => res.data)
@@ -55,6 +57,16 @@ export function addPost(postData, option) {
 export function updatePost(postData, option) {
   return axiosBase
     .put(`posts/${postData.id}`, postData, option)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+//  DELETE /posts/:id - Delete a post
+export function deletePost(postId, option) {
+  return axiosBase
+    .delete(`posts/${postId}`, option)
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
