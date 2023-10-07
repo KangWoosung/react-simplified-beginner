@@ -25,8 +25,9 @@ interface loaderInterface {
 
 export default function Filter({ users, filter }) {
   const { query, userId } = filter;
-  const queryRef = useRef<HTMLFormElement | null>(null);
-  const userRef = useRef<HTMLFormElement | null>(null);
+  // const abc = useRef<해당하는엘리먼트객체>(null)
+  const queryRef = useRef<HTMLInputElement>(null);
+  const userRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     if (queryRef.current) queryRef.current.value = query;
@@ -43,7 +44,7 @@ export default function Filter({ users, filter }) {
           </div>
           <div className="form-group">
             <label htmlFor="userId">Author</label>
-            <select type="search" name="userId" id="userId" ref={userRef}>
+            <select name="userId" id="userId" ref={userRef}>
               <option value="">Any</option>
               {users.map((user) => (
                 <option value={user.id} key={user.id}>

@@ -17,6 +17,7 @@ import { getUsers } from "../apiHandler/users";
 import { FormGroup } from "./component/FormGroup";
 import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import PostForm from "./component/PostForm784";
 
 /********************    Types Start    ************************/
 /*  Zod models import  */
@@ -28,20 +29,11 @@ type UserArrayType = z.infer<typeof UserResults>;
 
 const PostResults = PostSchema;
 type PostType = z.infer<typeof PostResults>;
-
-// loader 펑션 타입
-
-interface LoaderType {
-  users: UserArrayType;
-  // posts?: PostType[];
-  post: PostType;
-  // maxId?: number;
-}
 /********************    Types End    ************************/
 
 interface loaderInterface {
-  users: UserArrayType | undefined;
-  post: PostType | undefined;
+  users: UserArrayType;
+  post: PostType;
 }
 
 function EditPost784() {
@@ -53,89 +45,16 @@ function EditPost784() {
   const submittingState = state === "submitting";
 
   const { users, post }: loaderInterface = useLoaderData() as loaderInterface;
-  // if (post && post.id) console.log("post.id: ", post.id);
-
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PostType>({
-    resolver: zodResolver(PostSchema),
-  });
-
-  const onSubmitForm = async (data: PostType): Promise<void> => {
-    if (post?.id !== undefined) {
-      const formR = formRef.current as HTMLFormElement;
-      const formData = new FormData(formR);
-      formData.append("id", post.id.toString());
-
-      try {
-        await updatePost(Object.fromEntries(formData), {});
-        navigate(`/posts/${post.id}`);
-      } catch (error) {
-        console.error("Error updating post:", error);
-      }
-    }
-  };
 
   return (
     <>
       <h1 className="page-title">Edit Post</h1>
-      <form
-        onSubmit={handleSubmit(onSubmitForm)}
-        method="post"
-        className="form"
-        ref={formRef}
-      >
-        {/* <input type="hidden" {...register("id")} defaultValue={post?.id} /> */}
-        <div className="form-row">
-          <FormGroup errorMessage={errors?.title?.message}>
-            <label htmlFor="title">Edit in 785... Post {post?.id}</label>
-            <input
-              type="text"
-              {...register("title")}
-              defaultValue={post?.title}
-            />
-          </FormGroup>
-
-          <FormGroup errorMessage={errors?.userId?.message}>
-            <label htmlFor="userId">Author</label>
-            <select {...register("userId")} defaultValue={post?.userId}>
-              <option value={0} key={0}>
-                Nobody
-              </option>
-              {users &&
-                users.map((user) => {
-                  // console.log("user", user);
-                  return (
-                    <option value={Number(user.id)} key={user.id}>
-                      {user.name}
-                    </option>
-                  );
-                })}
-            </select>
-          </FormGroup>
-        </div>
-        <div className="form-row">
-          <FormGroup errorMessage={errors?.body?.message}>
-            <label htmlFor="body">Body</label>
-            <textarea
-              id="body"
-              {...register("body")}
-              defaultValue={post?.body}
-            ></textarea>
-          </FormGroup>
-        </div>
-        <div className="form-row form-btn-row">
-          <Link className="btn btn-outline" to="/posts">
-            Cancel
-          </Link>
-          <button type="submit" className="btn">
-            Save
-          </button>
-        </div>
-      </form>
+      <PostForm
+        users={users}
+        post={post}
+        version={"785"}
+        submittingState={submittingState}
+      />
     </>
   );
 }

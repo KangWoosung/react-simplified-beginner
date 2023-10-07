@@ -5,17 +5,17 @@
 
 import { RootLayout } from "./layouts/RootLayout";
 import Home from "./client/Home";
-import { PostsListRoute } from "./components78/PostsList784.tsx";
-import { PostRoute } from "./components78/Post783.tsx";
-import { UsersListRoute } from "./components78/UsersList784.tsx";
-import { UserRoute } from "./components78/User784.tsx";
-import { TodoListRoute } from "./components78/TodoList784.tsx";
-import { NewPostRoute } from "./components78/NewPost784.tsx";
-import { EditPostRoute } from "./components78/EditPost785.tsx";
-import { DeletePostRoute } from "./components78/DeletePost784.tsx";
+import { PostsListRoute } from "./components78/PostsList784";
+import { PostRoute } from "./components78/Post783";
+import { UsersListRoute } from "./components78/UsersList784";
+import { UserRoute } from "./components78/User784";
+import { TodoListRoute } from "./components78/TodoList784";
+import { NewPostRoute } from "./components78/NewPost785";
+import { EditPostRoute } from "./components78/EditPost785";
+import { DeletePostRoute } from "./components78/DeletePost784";
 import { createBrowserRouter, useRouteError } from "react-router-dom";
 
-export const router784 = createBrowserRouter([
+export const router785 = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,

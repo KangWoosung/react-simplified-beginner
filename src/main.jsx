@@ -13,12 +13,13 @@ import { RouterProvider } from "react-router-dom";
 // import { router781 } from "./router781";
 // import { router782 } from "./router782";
 // import { router783 } from "./router783";
-import { router784 } from "./router784";
+// import { router784 } from "./router784";
+import { router785 } from "./router785";
 import Navbar from "./Navbar";
 // import App from "./App.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router784} />
+    <RouterProvider router={router785} />
   </React.StrictMode>
 );
