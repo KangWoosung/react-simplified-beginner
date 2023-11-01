@@ -68,8 +68,6 @@ const loader = async ({
   return { users, post };
 };
 
-// 2023-10-02 21:06:37
-// 아무래도, loader 의 타입에서 문제가 시작되고 있는 것 같다.
 export const EditPostRoute = {
   element: <EditPost784 />,
   loader,

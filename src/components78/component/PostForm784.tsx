@@ -21,7 +21,6 @@ import { PostSchema } from "../../models/PostSchema";
 import { UserSchemaWithGeo } from "../../models/UsersJsonSchema";
 /*************** End Zod Schemas */
 
-type Inputs = z.infer<typeof PostSchema>;
 type PostSchema = z.infer<typeof PostSchema>;
 
 const UserResults = z.array(UserSchemaWithGeo);
@@ -116,7 +115,7 @@ export default function PostForm({
             className="btn"
             {...(submittingState && { disabled: true })}
           >
-            Save
+            {submittingState === true ? "Saving..." : "Save"}
           </button>
         </div>
       </Form>
